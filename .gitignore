@@ -1,13 +1,70 @@
-# Website packaging
-_site
-.sass-cache
+# Jekyll构建产物
+_site/
+.sass-cache/
+.jekyll-cache/
 .jekyll-metadata
-vendor
 
-# Editor files
+# Ruby依赖
+vendor/
+.bundle/
+Gemfile.lock
+
+# Python环境和文件
+myenv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# 编辑器和IDE文件
 .gitpod.yml
 .DS_Store
 /.idea
+.vscode/
+*.swp
+*.swo
+*~
 
-# Secrets
+# 系统文件
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# 部署和构建相关
+final_deployment/
+test_server/
+*.log
+
+# 临时脚本和文档
+merge_ercs.sh
+deploy_subdirectory.md
+optimize_build.sh
+
+# Node.js (如果使用)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 备份文件
+*.bak
+*.backup
+*.orig
+
+# 压缩文件
+*.zip
+*.tar.gz
+*.rar
+
+# 密钥和配置
 .vercel
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

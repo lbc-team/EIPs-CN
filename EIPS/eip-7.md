@@ -11,42 +11,42 @@ created: 2015-11-15
 ### Hard Fork
 [Homestead](./eip-606.md)
 
-### Parameters
-- Activation:
-  - Block >= 1,150,000 on Mainnet
-  - Block >= 494,000 on Morden
-  - Block >= 0 on future testnets
+### 参数
+- 激活:
+  - 区块 >= 1,150,000 在主网上
+  - 区块 >= 494,000 在 Morden 上
+  - 区块 >= 0 在未来的测试网上
 
-### Overview
+### 概述
 
-Add a new opcode, `DELEGATECALL` at `0xf4`, which is similar in idea to `CALLCODE`, except that it propagates the sender and value from the parent scope to the child scope, i.e. the call created has the same sender and value as the original call.
+添加一个新的操作码，`DELEGATECALL`，地址为 `0xf4`，其思路与 `CALLCODE` 类似，不同之处在于它将发送者和值从父作用域传播到子作用域，即，创建的调用与原始调用具有相同的发送者和值。
 
-### Specification
+### 规范
 
-`DELEGATECALL`: `0xf4`, takes 6 operands:
-- `gas`: the amount of gas the code may use in order to execute;
-- `to`: the destination address whose code is to be executed;
-- `in_offset`: the offset into memory of the input;
-- `in_size`: the size of the input in bytes;
-- `out_offset`: the offset into memory of the output;
-- `out_size`: the size of the scratch pad for the output.
+`DELEGATECALL`：`0xf4`，接受 6 个操作数：
+- `gas`：代码可以使用的 gas 量，以便执行；
+- `to`：要执行的代码的目标地址；
+- `in_offset`：输入在内存中的偏移量；
+- `in_size`：输入的字节大小；
+- `out_offset`：输出在内存中的偏移量；
+- `out_size`：输出的暂存区大小。
 
-#### Notes on gas
-- The basic stipend is not given; `gas` is the total amount the callee receives.
-- Like `CALLCODE`, account creation never happens, so the upfront gas cost is always `schedule.callGas` + `gas`.
-- Unused gas is refunded as normal.
+#### 关于 gas 的注意事项
+- 不提供基本津贴；`gas` 是被调用者收到的总金额。
+- 与 `CALLCODE` 类似，账户创建永远不会发生，因此预付 gas 成本始终为 `schedule.callGas` + `gas`。
+- 未使用的 gas 会正常退还。
 
-#### Notes on sender
-- `CALLER` and `VALUE` behave exactly in the callee's environment as they do in the caller's environment.
+#### 关于发送者的注意事项
+- `CALLER` 和 `VALUE` 在被调用者的环境中的行为与在调用者的环境中的行为完全相同。
 
-#### Other notes
-- The depth limit of 1024 is still preserved as normal.
+#### 其他注意事项
+- 1024 的深度限制仍然正常保留。
 
-### Rationale
+### 理由
 
-Propagating the sender and value from the parent scope to the child scope makes it much easier for a contract to store another address as a mutable source of code and ''pass through'' calls to it, as the child code would execute in essentially the same environment (except for reduced gas and increased callstack depth) as the parent.
+将发送者和值从父作用域传播到子作用域，使得合约更容易将另一个地址存储为可变代码源，并“传递”对其的调用，因为子代码将在与父代码基本相同的环境（除了减少 gas 和增加调用堆栈深度）中执行。
 
-Use case 1: split code to get around 3m gas barrier
+用例 1：拆分代码以绕过 3m gas 障碍
 
 ```python
 ~calldatacopy(0, 0, ~calldatasize())
@@ -59,7 +59,7 @@ elif ~calldataload(0) < 2**253 * 2:
 ...
 ```
 
-Use case 2: mutable address for storing the code of a contract:
+用例 2：用于存储合约代码的可变地址：
 
 ```python
 if ~calldataload(0) / 2**224 == 0x12345678 and self.owner == msg.sender:
@@ -68,8 +68,8 @@ else:
     ~delegate_call(msg.gas - 10000, self.delegate, 0, ~calldatasize(), ~calldatasize(), 10000)
     ~return(~calldatasize(), 10000)
 ```
-The child functions called by these methods can now freely reference `msg.sender` and `msg.value`.
+这些方法调用的子函数现在可以自由引用 `msg.sender` 和 `msg.value`。
 
-### Possible arguments against
+### 可能的反驳意见
 
-* You can replicate this functionality by just sticking the sender into the first twenty bytes of the call data. However, this would mean that code would need to be specially compiled for delegated contracts, and would not be usable in delegated and raw contexts at the same time.
+* 你可以通过将发送者放入调用数据的前 20 个字节来复制此功能。但是，这将意味着需要为委托合约专门编译代码，并且不能同时在委托和原始上下文中使用。

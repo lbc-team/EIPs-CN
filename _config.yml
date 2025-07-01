@@ -17,7 +17,8 @@ title: Ethereum Improvement Proposals
 description: >-
   Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum
   platform, such as core protocol specifications.
-url: "https://eips.ethereum.org"
+url: "https://learnblockchain.cn"
+baseurl: "/docs"
 github_username:  ethereum
 repository: ethereum/EIPs
 lang: en
@@ -44,14 +45,13 @@ kramdown:
   auto_id_stripping: true
   syntax_highlighter: rouge
 
-permalink: /:slug
-
 defaults:
   -
     scope:
       path: "EIPS"
     values:
       layout: "eip"
+      permalink: /EIPS/:basename/
 
 exclude:
   - .github
@@ -66,6 +66,11 @@ exclude:
   - ISSUE_TEMPLATE.md
   - PULL_REQUEST_TEMPLATE.md
   - README.md
+  - myenv/
+  - merge_ercs.sh
+  - scripts/
+  - "*.py"
+  - "*.pyc"
   
 include:
   - LICENSE

@@ -1,66 +1,67 @@
+```md
 ---
 eip: 4
-title: EIP Classification
+title: EIP 分类
 author: Joseph Chow (@ethers)
 status: Final
 type: Meta
 created: 2015-11-17
 ---
 
-# Abstract
+# 摘要
 
-This document describes a classification scheme for EIPs, adapted from [BIP 123](https://github.com/bitcoin/bips/blob/master/bip-0123.mediawiki).
+本文档描述了 EIP 的分类方案，改编自 [BIP 123](https://github.com/bitcoin/bips/blob/master/bip-0123.mediawiki)。
 
-EIPs are classified by system layers with lower numbered layers involving more intricate interoperability requirements.
+EIP 根据系统层进行分类，编号较低的层涉及更复杂的互操作性要求。
 
-The specification defines the layers and sets forth specific criteria for deciding to which layer a particular standards EIP belongs.
+本规范定义了各层，并提出了具体的标准来决定特定标准 EIP 属于哪一层。
 
-# Motivation
+# 动机
 
-Ethereum is a system involving a number of different standards. Some standards are absolute requirements for interoperability while others can be considered optional, giving implementors a choice of whether to support them.
+以太坊是一个涉及许多不同标准的系统。一些标准是互操作性的绝对要求，而另一些标准可以被认为是可选的，让实现者可以选择是否支持它们。
 
-In order to have a EIP process which more closely reflects the interoperability requirements, it is necessary to categorize EIPs accordingly. Lower layers present considerably greater challenges in getting standards accepted and deployed.
+为了使 EIP 流程更紧密地反映互操作性要求，有必要对 EIP 进行相应分类。较低的层在接受和部署标准方面提出了更大的挑战。
 
-# Specification
+# 规范
 
-Standards EIPs are placed in one of four layers:
+标准 EIP 分为四层：
 
-1. Consensus
-2. Networking
+1. 共识层
+2. 网络层
 3. API/RPC
-4. Applications
+4. 应用层
 
-# 1. Consensus Layer
+# 1. 共识层
 
-The consensus layer defines cryptographic commitment structures. Its purpose is ensuring that anyone can locally evaluate whether a particular state and history is valid, providing settlement guarantees, and assuring eventual convergence.
+共识层定义了密码承诺结构。其目的是确保任何人都可以本地评估特定状态和历史是否有效，提供结算保证，并确保最终收敛。
 
-The consensus layer is not concerned with how messages are propagated on a network.
+共识层不关心消息如何在网络上传播。
 
-Disagreements over the consensus layer can result in network partitioning, or forks, where different nodes might end up accepting different incompatible histories. We further subdivide consensus layer changes into soft forks and hard forks.
+关于共识层的分歧可能导致网络分割或分叉，不同的节点最终可能会接受不同的不兼容历史。我们将共识层更改进一步细分为软分叉和硬分叉。
 
-## Soft Forks
+## 软分叉
 
-In a soft fork, some structures that were valid under the old rules are no longer valid under the new rules. Structures that were invalid under the old rules continue to be invalid under the new rules.
+在软分叉中，一些在旧规则下有效的结构在新规则下不再有效。在旧规则下无效的结构在新规则下仍然无效。
 
-## Hard Forks
+## 硬分叉
 
-In a hard fork, structures that were invalid under the old rules become valid under the new rules.
+在硬分叉中，一些在旧规则下无效的结构在新规则下变得有效。
 
-# 2. Networking Layer
+# 2. 网络层
 
-The networking layer specifies the Ethereum wire protocol (eth) and the Light Ethereum Subprotocol (les).  RLPx is excluded and tracked in the [https://github.com/ethereum/devp2p devp2p repository].
+网络层指定了以太坊线协议 (eth) 和轻量级以太坊子协议 (les)。RLPx 被排除在外，并在 [https://github.com/ethereum/devp2p devp2p repository] 中跟踪。
 
-Only a subset of subprotocols are required for basic node interoperability. Nodes can support further optional extensions.
+只有一部分子协议是基本节点互操作性所必需的。节点可以支持进一步的可选扩展。
 
-It is always possible to add new subprotocols without breaking compatibility with existing protocols, then gradually deprecate older protocols. In this manner, the entire network can be upgraded without serious risks of service disruption.
+总是可以添加新的子协议，而不会破坏与现有协议的兼容性，然后逐步弃用旧协议。通过这种方式，可以升级整个网络，而不会出现严重的服务中断风险。
 
+# 3. API/RPC 层
 
-# 3. API/RPC Layer
+API/RPC 层指定了应用程序可以访问的更高级别的调用。基本网络互操作性不需要支持这些 EIP，但某些客户端应用程序可能会期望支持这些 EIP。
 
-The API/RPC layer specifies higher level calls accessible to applications. Support for these EIPs is not required for basic network interoperability but might be expected by some client applications.
+这一层有空间允许竞争标准，而不会破坏基本网络互操作性。
 
-There's room at this layer to allow for competing standards without breaking basic network interoperability.
+# 4. 应用层
 
-# 4. Applications Layer
-
-The applications layer specifies high level structures, abstractions, and conventions that allow different applications to support similar features and share data.
+应用层指定了高级结构、抽象和约定，这些结构、抽象和约定允许不同的应用程序支持类似的功能并共享数据。
+```

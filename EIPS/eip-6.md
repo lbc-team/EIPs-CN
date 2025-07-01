@@ -1,6 +1,6 @@
 ---
 eip: 6
-title: Renaming SUICIDE opcode
+title: 重命名 SUICIDE 操作码
 author: Hudson Jameson <hudson@hudsonjameson.com>
 status: Final
 type: Standards Track
@@ -8,18 +8,18 @@ category: Interface
 created: 2015-11-22
 ---
 
-### Abstract
-The solution proposed in this EIP is to change the name of the `SUICIDE` opcode in Ethereum programming languages with `SELFDESTRUCT`.
+### 摘要
+本 EIP 中提出的解决方案是将 Ethereum 编程语言中的 `SUICIDE` 操作码的名称更改为 `SELFDESTRUCT`。
 
-### Motivation
-Mental health is a very real issue for many people and small notions can make a difference. Those dealing with loss or depression would benefit from not seeing the word suicide in our programming languages. By some estimates, 350 million people worldwide suffer from depression. The semantics of Ethereum's programming languages need to be reviewed often if we wish to grow our ecosystem to all types of developers.
+### 动机
+对于许多人来说，心理健康是一个非常现实的问题，而小的想法可以带来改变。那些正在应对失落或抑郁的人会因为在我们的编程语言中看不到“suicide（自杀）”这个词而受益。据估计，全球有 3.5 亿人患有抑郁症。如果我们希望将我们的生态系统发展到所有类型的开发者，就需要经常审查 Ethereum 编程语言的语义。
 
-An Ethereum security audit commissioned by DEVolution, GmbH and [performed by Least Authority](https://github.com/LeastAuthority/ethereum-analyses/blob/master/README.md) recommended the following:
-> Replace the instruction name "suicide" with a less connotative word like "self-destruct", "destroy", "terminate", or "close", especially since that is a term describing the natural conclusion of a contract.
+由 DEVolution, GmbH 委托并由 [Least Authority 执行](https://github.com/LeastAuthority/ethereum-analyses/blob/master/README.md) 的 Ethereum 安全审计提出了以下建议：
+> 将指令名称“suicide（自杀）”替换为不带感情色彩的词，如“self-destruct（自毁）”、“destroy（销毁）”、“terminate（终止）”或“close（关闭）”，尤其是因为这是一个描述合约自然结论的术语。
 
-The primary reason for us to change the term suicide is to show that people matter more than code and Ethereum is a mature enough of a project to recognize the need for a change. Suicide is a heavy subject and we should make every effort possible to not affect those in our development community who suffer from depression or who have recently lost someone to suicide. Ethereum is a young platform and it will cause less headaches if we implement this change early on in its life.
+我们更改术语 suicide 的主要原因是表明人比代码更重要，并且 Ethereum 是一个足够成熟的项目，可以认识到需要进行更改。自杀是一个沉重的话题，我们应该尽一切可能不影响我们开发社区中那些患有抑郁症或最近因自杀而失去亲人的人。Ethereum 是一个年轻的平台，如果在其发展的早期阶段实施此更改，将会减少很多麻烦。
 
-### Implementation
-`SELFDESTRUCT` is added as an alias of `SUICIDE` opcode (rather than replacing it).
+### 实现
+`SELFDESTRUCT` 被添加为 `SUICIDE` 操作码的别名（而不是替换它）。
 https://github.com/ethereum/solidity/commit/a8736b7b271dac117f15164cf4d2dfabcdd2c6fd
 https://github.com/ethereum/serpent/commit/1106c3bdc8f1bd9ded58a452681788ff2e03ee7c

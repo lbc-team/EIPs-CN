@@ -1,440 +1,347 @@
+```md
 ---
 eip: 1
-title: EIP Purpose and Guidelines
+title: EIP 目的和指南
 status: Living
 type: Meta
 author: Martin Becze <mb@ethereum.org>, Hudson Jameson <hudson@ethereum.org>, et al.
 created: 2015-10-27
 ---
 
-## What is an EIP?
+## 什么是 EIP？
 
-EIP stands for Ethereum Improvement Proposal. An EIP is a design document providing information to the Ethereum community, or describing a new feature for Ethereum or its processes or environment. The EIP should provide a concise technical specification of the feature and a rationale for the feature. The EIP author is responsible for building consensus within the community and documenting dissenting opinions.
+EIP 代表 Ethereum Improvement Proposal（以太坊改进提案）。EIP 是一份设计文档，旨在向以太坊社区提供信息，或描述以太坊或其流程或环境的新特性。EIP 应该提供该特性的简洁技术规范和理由。EIP 作者负责在社区内建立共识，并记录不同的意见。
 
-## EIP Rationale
+## EIP 基本原理
 
-We intend EIPs to be the primary mechanisms for proposing new features, for collecting community technical input on an issue, and for documenting the design decisions that have gone into Ethereum. Because the EIPs are maintained as text files in a versioned repository, their revision history is the historical record of the feature proposal.
+我们希望 EIP 成为提出新特性、收集社区对某个问题的技术意见以及记录以太坊设计决策的主要机制。由于 EIP 作为文本文件保存在版本库中，因此其修订历史记录就是特性提案的历史记录。
 
-For Ethereum implementers, EIPs are a convenient way to track the progress of their implementation. Ideally each implementation maintainer would list the EIPs that they have implemented. This will give end users a convenient way to know the current status of a given implementation or library.
+对于以太坊的实现者来说，EIP 是一种方便的方式来跟踪其实现的进度。理想情况下，每个实现的维护者都会列出他们已经实现的 EIP。这将为最终用户提供一种方便的方式来了解给定实现或库的当前状态。
 
-## EIP Types
+## EIP 类型
 
-There are three types of EIP:
+EIP 有三种类型：
 
-- A **Standards Track EIP** describes any change that affects most or all Ethereum implementations, such as—a change to the network protocol, a change in block or transaction validity rules, proposed application standards/conventions, or any change or addition that affects the interoperability of applications using Ethereum. Standards Track EIPs consist of three parts—a design document, an implementation, and (if warranted) an update to the [formal specification](https://github.com/ethereum/yellowpaper). Furthermore, Standards Track EIPs can be broken down into the following categories:
-  - **Core**: improvements requiring a consensus fork (e.g. [EIP-5](./eip-5.md), [EIP-101](./eip-101.md)), as well as changes that are not necessarily consensus critical but may be relevant to [“core dev” discussions](https://github.com/ethereum/pm) (for example, [EIP-90], and the miner/node strategy changes 2, 3, and 4 of [EIP-86](./eip-86.md)).
-  - **Networking**: includes improvements around [devp2p](https://github.com/ethereum/devp2p/blob/readme-spec-links/rlpx.md) ([EIP-8](./eip-8.md)) and [Light Ethereum Subprotocol](https://ethereum.org/en/developers/docs/nodes-and-clients/#light-node), as well as proposed improvements to network protocol specifications of [whisper](https://github.com/ethereum/go-ethereum/issues/16013#issuecomment-364639309) and [swarm](https://github.com/ethereum/go-ethereum/pull/2959).
-  - **Interface**: includes improvements around language-level standards like method names ([EIP-6](./eip-6.md)) and [contract ABIs](https://docs.soliditylang.org/en/develop/abi-spec.html).
-  - **ERC**: application-level standards and conventions, including contract standards such as token standards ([ERC-20](./eip-20.md)), name registries ([ERC-137](./eip-137.md)), URI schemes, library/package formats, and wallet formats.
+- **标准跟踪 EIP** 描述了影响大多数或所有以太坊实现的任何更改，例如对网络协议的更改、对区块或交易有效性规则的更改、提议的应用程序标准/约定，或影响使用以太坊的应用程序互操作性的任何更改或添加。标准跟踪 EIP 由三个部分组成——设计文档、实现以及（如果需要）[形式规范](https://github.com/ethereum/yellowpaper)的更新。此外，标准跟踪 EIP 可以分为以下几类：
+  - **核心 (Core)**：需要共识分叉的改进（例如[EIP-5](./eip-5.md)，[EIP-101](./eip-101.md)），以及不一定对共识至关重要但可能与 ["核心开发" 讨论](https://github.com/ethereum/pm)相关的更改（例如，[EIP-90] 以及 [EIP-86](./eip-86.md) 的矿工/节点策略更改 2、3 和 4）。
+  - **网络 (Networking)**：包括围绕 [devp2p](https://github.com/ethereum/devp2p/blob/readme-spec-links/rlpx.md) ([EIP-8](./eip-8.md)) 和 [Light Ethereum Subprotocol](https://ethereum.org/en/developers/docs/nodes-and-clients/#light-node) 的改进，以及对 [whisper](https://github.com/ethereum/go-ethereum/issues/16013#issuecomment-364639309) 和 [swarm](https://github.com/ethereum/go-ethereum/pull/2959) 网络协议规范的拟议改进。
+  - **接口 (Interface)**：包括围绕语言级别标准的改进，例如方法名称 ([EIP-6](./eip-6.md)) 和 [合约 ABI](https://docs.soliditylang.org/en/develop/abi-spec.html)。
+  - **ERC**：应用程序级别的标准和约定，包括合约标准，例如代币标准 ([ERC-20](./eip-20.md))、名称注册表 ([ERC-137](./eip-137.md))、URI 方案、库/包格式和钱包格式。
 
-- A **Meta EIP** describes a process surrounding Ethereum or proposes a change to (or an event in) a process. Process EIPs are like Standards Track EIPs but apply to areas other than the Ethereum protocol itself. They may propose an implementation, but not to Ethereum's codebase; they often require community consensus; unlike Informational EIPs, they are more than recommendations, and users are typically not free to ignore them. Examples include procedures, guidelines, changes to the decision-making process, and changes to the tools or environment used in Ethereum development. Any meta-EIP is also considered a Process EIP.
+- **Meta EIP** 描述了围绕以太坊的流程，或者提出了对流程的更改（或流程中的事件）。流程 EIP 类似于标准跟踪 EIP，但适用于以太坊协议本身以外的领域。他们可能会提出一个实现，但不是针对以太坊的代码库；他们通常需要社区共识；与信息 EIP 不同，它们不仅仅是建议，并且用户通常不能自由地忽略它们。示例包括程序、指南、决策过程的更改以及以太坊开发中使用的工具或环境的更改。任何 Meta EIP 也被认为是流程 EIP。
 
-- An **Informational EIP** describes an Ethereum design issue, or provides general guidelines or information to the Ethereum community, but does not propose a new feature. Informational EIPs do not necessarily represent Ethereum community consensus or a recommendation, so users and implementers are free to ignore Informational EIPs or follow their advice.
+- **信息 EIP** 描述了一个以太坊设计问题，或者向以太坊社区提供了一般性指南或信息，但没有提出新特性。信息 EIP 不一定代表以太坊社区的共识或建议，因此用户和实现者可以自由地忽略信息 EIP 或遵循他们的建议。
 
-It is highly recommended that a single EIP contain a single key proposal or new idea. The more focused the EIP, the more successful it tends to be. A change to one client doesn't require an EIP; a change that affects multiple clients, or defines a standard for multiple apps to use, does.
+强烈建议单个 EIP 包含单个关键提案或新想法。EIP 越集中，它就越容易成功。对一个客户端的更改不需要 EIP；影响多个客户端或定义多个应用程序使用的标准的更改则需要。
 
-An EIP must meet certain minimum criteria. It must be a clear and complete description of the proposed enhancement. The enhancement must represent a net improvement. The proposed implementation, if applicable, must be solid and must not complicate the protocol unduly.
+EIP 必须满足某些最低标准。它必须是对拟议增强功能的清晰而完整的描述。增强功能必须代表净改进。如果适用，拟议的实现必须是可靠的，并且不得不适当地使协议复杂化。
 
-### Special requirements for Core EIPs
+### 核心 EIP 的特殊要求
 
-If a **Core** EIP mentions or proposes changes to the EVM (Ethereum Virtual Machine), it should refer to the instructions by their mnemonics and define the opcodes of those mnemonics at least once. A preferred way is the following:
+如果**核心 (Core)** EIP 提及或提议更改 EVM (Ethereum Virtual Machine，以太坊虚拟机)，则应按助记符引用指令，并且至少定义一次这些助记符的操作码。首选方式如下：
 
 ```
 REVERT (0xfe)
 ```
 
-## EIP Work Flow
+## EIP 工作流程
 
-### Shepherding an EIP
+### 引导 EIP
 
-Parties involved in the process are you, the champion or *EIP author*, the [*EIP editors*](#eip-editors), and the [*Ethereum Core Developers*](https://github.com/ethereum/pm).
+流程中的参与方包括你、倡导者或 *EIP 作者*、[*EIP 编辑*](#eip-editors)和 [*以太坊核心开发者*](https://github.com/ethereum/pm)。
 
-Before you begin writing a formal EIP, you should vet your idea. Ask the Ethereum community first if an idea is original to avoid wasting time on something that will be rejected based on prior research. It is thus recommended to open a discussion thread on [the Ethereum Magicians forum](https://ethereum-magicians.org/) to do this.
+在开始编写正式的 EIP 之前，你应该审查你的想法。首先询问以太坊社区一个想法是否是原创的，以避免浪费时间在基于先前研究将被拒绝的事情上。因此，建议在 [Ethereum Magicians 论坛](https://ethereum-magicians.org/)上开设一个讨论主题来做到这一点。
 
-Once the idea has been vetted, your next responsibility will be to present (by means of an EIP) the idea to the reviewers and all interested parties, invite editors, developers, and the community to give feedback on the aforementioned channels. You should try and gauge whether the interest in your EIP is commensurate with both the work involved in implementing it and how many parties will have to conform to it. For example, the work required for implementing a Core EIP will be much greater than for an ERC and the EIP will need sufficient interest from the Ethereum client teams. Negative community feedback will be taken into consideration and may prevent your EIP from moving past the Draft stage.
+一旦该想法经过审查，你的下一个责任将是通过 EIP 将该想法呈现给审阅者和所有相关方，邀请编辑、开发人员和社区在上述渠道上提供反馈。你应该尝试评估你对 EIP 的兴趣是否与实施该 EIP 所涉及的工作量以及有多少方必须遵守它相称。例如，实施核心 EIP 所需的工作量将远大于 ERC，并且 EIP 需要以太坊客户端团队的足够兴趣。负面的社区反馈将被考虑在内，并可能阻止你的 EIP 超过草案阶段。
 
-### Core EIPs
+### 核心 EIP
 
-For Core EIPs, given that they require client implementations to be considered **Final** (see "EIPs Process" below), you will need to either provide an implementation for clients or convince clients to implement your EIP.
+对于核心 EIP，鉴于它们需要客户端实现才能被认为是**最终版本**（请参阅下面的“EIP 流程”），你需要为客户端提供实现或说服客户端实施你的 EIP。
 
-The best way to get client implementers to review your EIP is to present it on an AllCoreDevs call. You can request to do so by posting a comment linking your EIP on an [AllCoreDevs agenda GitHub Issue](https://github.com/ethereum/pm/issues).  
+让客户端实施者审查你的 EIP 的最佳方式是在 AllCoreDevs 通话中展示它。你可以通过在 [AllCoreDevs 议程 GitHub Issue](https://github.com/ethereum/pm/issues) 上发布评论来要求这样做，并在评论中链接到你的 EIP。
 
-The AllCoreDevs call serves as a way for client implementers to do three things. First, to discuss the technical merits of EIPs. Second, to gauge what other clients will be implementing. Third, to coordinate EIP implementation for network upgrades.
+AllCoreDevs 通话是一种让客户端实施者做三件事的方式。首先，讨论 EIP 的技术优点。其次，评估其他客户端将要实施的内容。第三，协调网络升级的 EIP 实施。
 
-These calls generally result in a "rough consensus" around what EIPs should be implemented. This "rough consensus" rests on the assumptions that EIPs are not contentious enough to cause a network split and that they are technically sound.
+这些通话通常会导致围绕应实施哪些 EIP 达成“大致共识”。这种“大致共识”基于以下假设：EIP 没有足够的争议会导致网络分裂，并且它们在技术上是合理的。
 
-:warning: The EIPs process and AllCoreDevs call were not designed to address contentious non-technical issues, but, due to the lack of other ways to address these, often end up entangled in them. This puts the burden on client implementers to try and gauge community sentiment, which hinders the technical coordination function of EIPs and AllCoreDevs calls. If you are shepherding an EIP, you can make the process of building community consensus easier by making sure that [the Ethereum Magicians forum](https://ethereum-magicians.org/) thread for your EIP includes or links to as much of the community discussion as possible and that various stakeholders are well-represented.
+:warning: EIP 流程和 AllCoreDevs 通话并非旨在解决有争议的非技术问题，但由于缺乏解决这些问题的其他方法，最终常常会纠缠其中。这给客户端实施者带来了尝试评估社区情绪的负担，这阻碍了 EIP 和 AllCoreDevs 通话的技术协调功能。如果你正在引导 EIP，你可以通过确保你的 EIP 的 [Ethereum Magicians 论坛](https://ethereum-magicians.org/) 线程包含或链接到尽可能多的社区讨论，并且各个利益相关者都有充分的代表性，从而简化建立社社区共识的过程。
 
-*In short, your role as the champion is to write the EIP using the style and format described below, shepherd the discussions in the appropriate forums, and build community consensus around the idea.*
+*简而言之，你作为倡导者的角色是使用下面描述的风格和格式编写 EIP，引导适当论坛中的讨论，并围绕该想法建立社区共识。*
 
-### EIP Process
+### EIP 流程
 
-The following is the standardization process for all EIPs in all tracks:
+以下是所有跟踪中的所有 EIP 的标准化流程：
 
-![EIP Status Diagram](../assets/eip-1/EIP-process-update.jpg)
+![EIP 状态图](../assets/eip-1/EIP-process-update.jpg)
 
-**Idea** - An idea that is pre-draft. This is not tracked within the EIP Repository.
+**想法（Idea）** - 草案之前的想法。这不在 EIP 存储库中跟踪。
 
-**Draft** - The first formally tracked stage of an EIP in development. An EIP is merged by an EIP Editor into the EIP repository when properly formatted.
+**草案（Draft）** - EIP 开发中第一个正式跟踪的阶段。当 EIP 格式正确时，由 EIP 编辑将其合并到 EIP 存储库中。
 
-**Review** - An EIP Author marks an EIP as ready for and requesting Peer Review.
+**审查（Review）** - EIP 作者将 EIP 标记为准备好并请求同行评审。
 
-**Last Call** - This is the final review window for an EIP before moving to `Final`. An EIP editor will assign `Last Call` status and set a review end date (`last-call-deadline`), typically 14 days later.
+**最后征求意见（Last Call）** - 这是 EIP 进入“最终（Final）”状态之前的最终审查窗口。EIP 编辑将分配“最后征求意见（Last Call）”状态并设置审查结束日期（`last-call-deadline`），通常为 14 天后。
 
-If this period results in necessary normative changes it will revert the EIP to `Review`.
+如果在此期间导致必要的规范性更改，它将使 EIP 恢复为“审查（Review）”。
 
-**Final** - This EIP represents the final standard. A Final EIP exists in a state of finality and should only be updated to correct errata and add non-normative clarifications.
+**最终（Final）** - 此 EIP 代表最终标准。“最终（Final）”EIP 存在于最终状态，应仅更新以更正勘误并添加非规范性说明。
 
-A PR moving an EIP from Last Call to Final SHOULD contain no changes other than the status update. Any content or editorial proposed change SHOULD be separate from this status-updating PR and committed prior to it.
+将 EIP 从“最后征求意见（Last Call）”移至“最终（Final）”的 PR 不应包含状态更新以外的任何更改。任何内容或编辑提议的更改应与此状态更新 PR 分开，并在其之前提交。
 
-**Stagnant** - Any EIP in `Draft` or `Review` or `Last Call` if inactive for a period of 6 months or greater is moved to `Stagnant`. An EIP may be resurrected from this state by Authors or EIP Editors through moving it back to `Draft` or its earlier status. If not resurrected, a proposal may stay forever in this status.
+**停滞（Stagnant）** - 在“草案（Draft）”、“审查（Review）”或“最后征求意见（Last Call）”中的任何 EIP，如果闲置 6 个月或更长时间，则会移至“停滞（Stagnant）”。EIP 可以通过作者或 EIP 编辑将其移回“草案（Draft）”或其早期状态来从此状态中恢复。如果未恢复，则提案可能会永久保持此状态。
 
->*EIP Authors are notified of any algorithmic change to the status of their EIP*
+>*EIP 作者会收到对其 EIP 状态的任何算法更改的通知*
 
-**Withdrawn** - The EIP Author(s) have withdrawn the proposed EIP. This state has finality and can no longer be resurrected using this EIP number. If the idea is pursued at later date it is considered a new proposal.
+**撤回（Withdrawn）** - EIP 作者已撤回了提出的 EIP。此状态具有最终性，并且不能再使用此 EIP 编号来恢复。如果该想法在稍后日期被采纳，则将其视为新提案。
 
-**Living** - A special status for EIPs that are designed to be continually updated and not reach a state of finality. This includes most notably EIP-1.
+**活跃（Living）** - EIP 的一种特殊状态，这些 EIP 旨在不断更新，而不会达到最终状态。这尤其包括 EIP-1。
 
-## What belongs in a successful EIP?
+## 成功的 EIP 中包含哪些内容？
 
-Each EIP should have the following parts:
+每个 EIP 都应具有以下部分：
 
-- Preamble - RFC 822 style headers containing metadata about the EIP, including the EIP number, a short descriptive title (limited to a maximum of 44 characters), a description (limited to a maximum of 140 characters), and the author details. Irrespective of the category, the title and description should not include EIP number. See [below](./eip-1.md#eip-header-preamble) for details.
-- Abstract - Abstract is a multi-sentence (short paragraph) technical summary. This should be a very terse and human-readable version of the specification section. Someone should be able to read only the abstract to get the gist of what this specification does.
-- Motivation *(optional)* - A motivation section is critical for EIPs that want to change the Ethereum protocol. It should clearly explain why the existing protocol specification is inadequate to address the problem that the EIP solves. This section may be omitted if the motivation is evident.
-- Specification - The technical specification should describe the syntax and semantics of any new feature. The specification should be detailed enough to allow competing, interoperable implementations for any of the current Ethereum platforms (besu, erigon, ethereumjs, go-ethereum, nethermind, or others).
-- Rationale - The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages. The rationale should discuss important objections or concerns raised during discussion around the EIP.
-- Backwards Compatibility *(optional)* - All EIPs that introduce backwards incompatibilities must include a section describing these incompatibilities and their consequences. The EIP must explain how the author proposes to deal with these incompatibilities. This section may be omitted if the proposal does not introduce any backwards incompatibilities, but this section must be included if backward incompatibilities exist.
-- Test Cases *(optional)* - Test cases for an implementation are mandatory for EIPs that are affecting consensus changes. Tests should either be inlined in the EIP as data (such as input/expected output pairs) or included in `../assets/eip-###/<filename>`. This section may be omitted for non-Core proposals.
-- Reference Implementation *(optional)* - An optional section that contains a reference/example implementation that people can use to assist in understanding or implementing this specification. This section may be omitted for all EIPs.
-- Security Considerations - All EIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surfaces risks and can be used throughout the life-cycle of the proposal. E.g. include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. EIP submissions missing the "Security Considerations" section will be rejected. An EIP cannot proceed to status "Final" without a Security Considerations discussion deemed sufficient by the reviewers.
-- Copyright Waiver - All EIPs must be in the public domain. The copyright waiver MUST link to the license file and use the following wording: `Copyright and related rights waived via [CC0](../LICENSE.md).`
+- 前导码（Preamble）- RFC 822 样式的标头，其中包含有关 EIP 的元数据，包括 EIP 编号、简短的描述性标题（限制为最多 44 个字符）、描述（限制为最多 140 个字符）和作者详细信息。无论类别如何，标题和描述都不应包含 EIP 编号。有关详细信息，请参见[下方](./eip-1.md#eip-header-preamble)。
+- 摘要（Abstract）- 摘要是多句（短段落）技术摘要。这应该是规范部分的非常简洁且易于理解的版本。有人应该只阅读摘要，就可以了解该规范的作用。
+- 动机（Motivation）*(可选)* - 动机部分对于想要更改以太坊协议的 EIP 至关重要。它应清楚地解释为什么现有协议规范不足以解决 EIP 解决的问题。如果动机很明显，则可以省略此部分。
+- 规范（Specification）- 技术规范应描述任何新特性的语法和语义。该规范应足够详细，以便为任何当前的以太坊平台（besu、erigon、ethereumjs、go-ethereum、nethermind 或其他平台）提供竞争性的、可互操作的实现。
+- 基本原理（Rationale）- 基本原理通过描述设计动机以及为什么做出特定的设计决策来充实规范。它应描述所考虑的替代设计和相关工作，例如，该特性在其他语言中的支持方式。基本原理应讨论围绕 EIP 的讨论中提出的重要异议或疑虑。
+- 向后兼容性（Backwards Compatibility）*(可选)* - 所有引入向后不兼容性的 EIP 必须包含一个描述这些不兼容性及其后果的部分。EIP 必须解释作者建议如何处理这些不兼容性。如果该提案未引入任何向后不兼容性，则可以省略此部分，但是如果存在向后不兼容性，则必须包含此部分。
+- 测试用例（Test Cases）*(可选)* - 对于影响共识变更的 EIP，实现测试用例是强制性的。测试应以内联方式包含在 EIP 中作为数据（例如输入/预期输出对），或包含在`../assets/eip-###/<filename>`中。非核心提案可以省略此部分。
+- 参考实现（Reference Implementation）*(可选)* - 一个可选部分，其中包含人们可以用来帮助理解或实现此规范的参考/示例实现。所有 EIP 都可以省略此部分。
+- 安全考虑（Security Considerations）- 所有 EIP 必须包含一个部分，讨论与拟议变更相关的安全影响/考虑因素。包括可能对安全讨论很重要的信息、表面风险，并可以在提案的整个生命周期中使用。例如，包括与安全相关的设计决策、疑虑、重要讨论、特定于实现的指南和陷阱，以及威胁和风险的概述以及如何解决这些问题。缺少“安全考虑”部分的 EIP 提交将被拒绝。如果没有审阅者认为足够的“安全考虑”讨论，EIP 将无法进入“最终（Final）”状态。
+- 版权放弃（Copyright Waiver）- 所有 EIP 必须在公共领域中。版权放弃必须链接到许可文件并使用以下措辞：`版权和相关权利通过 [CC0](../LICENSE.md) 放弃。`
 
-## EIP Formats and Templates
+## EIP 格式和模板
 
-EIPs should be written in [markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) format. There is a [template](https://github.com/ethereum/EIPs/blob/master/eip-template.md) to follow.
+EIP 应该以 [markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) 格式编写。有一个 [模板](https://github.com/ethereum/EIPs/blob/master/eip-template.md) 可供遵循。
 
-## EIP Header Preamble
+## EIP 标头前导码
 
-Each EIP must begin with an [RFC 822](https://www.ietf.org/rfc/rfc822.txt) style header preamble, preceded and followed by three hyphens (`---`). This header is also termed ["front matter" by Jekyll](https://jekyllrb.com/docs/front-matter/). The headers must appear in the following order.
+每个 EIP 必须以 [RFC 822](https://www.ietf.org/rfc/rfc822.txt) 样式的标头前导码开头，并在其前后加上三个连字符 (`---`)。此标头也称为 Jekyll 的 ["front matter"](https://jekyllrb.com/docs/front-matter/)。标头必须按以下顺序显示。
 
-`eip`: *EIP number*
+`eip`: *EIP number（EIP 编号）*
 
-`title`: *The EIP title is a few words, not a complete sentence*
+`title`: *The EIP title is a few words, not a complete sentence（EIP 标题是几个词，而不是一个完整的句子）*
 
-`description`: *Description is one full (short) sentence*
+`description`: *Description is one full (short) sentence（描述是一个完整的（简短）句子）*
 
-`author`: *The list of the author's or authors' name(s) and/or username(s), or name(s) and email(s). Details are below.*
+`author`: *The list of the author's or authors' name(s) and/or username(s), or name(s) and email(s). Details are below（作者或作者的姓名和/或用户名，或姓名和电子邮件的列表。详细信息如下。）*
 
-`discussions-to`: *The url pointing to the official discussion thread*
+`discussions-to`: *The url pointing to the official discussion thread（指向官方讨论线程的 URL）*
 
-`status`: *Draft, Review, Last Call, Final, Stagnant, Withdrawn, Living*
+`status`: *Draft, Review, Last Call, Final, Stagnant, Withdrawn, Living（草案、审查、最后征求意见、最终、停滞、撤回、活跃）*
 
-`last-call-deadline`: *The date last call period ends on* (Optional field, only needed when status is `Last Call`)
+`last-call-deadline`: *The date last call period ends on（最后征求意见期限结束的日期）* (可选字段，仅当状态为 `Last Call` 时需要)
 
-`type`: *One of `Standards Track`, `Meta`, or `Informational`*
+`type`: *One of `Standards Track`, `Meta`, or `Informational`（`标准跟踪`、`Meta` 或 `信息`之一）*
 
-`category`: *One of `Core`, `Networking`, `Interface`, or `ERC`* (Optional field, only needed for `Standards Track` EIPs)
+`category`: *One of `Core`, `Networking`, `Interface`, or `ERC`（`核心`、`网络`、`接口` 或 `ERC` 之一）* (可选字段，仅适用于 `标准跟踪` EIP)
 
-`created`: *Date the EIP was created on*
+`created`: *Date the EIP was created on（创建 EIP 的日期）*
 
-`requires`: *EIP number(s)* (Optional field)
+`requires`: *EIP number(s)（EIP 编号）* (可选字段)
 
-`withdrawal-reason`: *A sentence explaining why the EIP was withdrawn.* (Optional field, only needed when status is `Withdrawn`)
+`withdrawal-reason`: *A sentence explaining why the EIP was withdrawn（解释 EIP 为何被撤回的句子）* (可选字段，仅当状态为 `Withdrawn` 时需要)
 
-Headers that permit lists must separate elements with commas.
+允许列表的标头必须用逗号分隔元素。
 
-Headers requiring dates will always do so in the format of ISO 8601 (yyyy-mm-dd).
+需要日期的标头将始终采用 ISO 8601 (yyyy-mm-dd) 格式。
 
-### `author` header
+### `author` 标头
 
-The `author` header lists the names, email addresses or usernames of the authors/owners of the EIP. Those who prefer anonymity may use a username only, or a first name and a username. The format of the `author` header value must be:
+`author` 标头列出了 EIP 的作者/所有者的姓名、电子邮件地址或用户名。那些喜欢匿名的人可以仅使用用户名，也可以使用名字和用户名。`author` 标头值的格式必须为：
 
 > Random J. User &lt;address@dom.ain&gt;
 
-or
+或
 
 > Random J. User (@username)
 
-or
+或
 
 > Random J. User (@username) &lt;address@dom.ain&gt;
 
-if the email address and/or GitHub username is included, and
+如果包含电子邮件地址和/或 GitHub 用户名，并且
 
 > Random J. User
 
-if neither the email address nor the GitHub username are given.
+如果未提供电子邮件地址和 GitHub 用户名。
 
-At least one author must use a GitHub username, in order to get notified on change requests and have the capability to approve or reject them.
+至少一位作者必须使用 GitHub 用户名，以便收到更改请求的通知并具有批准或拒绝更改请求的能力。
 
-### `discussions-to` header
+### `discussions-to` 标头
 
-While an EIP is a draft, a `discussions-to` header will indicate the URL where the EIP is being discussed.
+当 EIP 为草案时，`discussions-to` 标头将指示正在讨论 EIP 的 URL。
 
-The preferred discussion URL is a topic on [Ethereum Magicians](https://ethereum-magicians.org/). The URL cannot point to Github pull requests, any URL which is ephemeral, and any URL which can get locked over time (i.e. Reddit topics).
+首选的讨论 URL 是 [Ethereum Magicians](https://ethereum-magicians.org/) 上的一个主题。该 URL 不能指向 Github pull request、任何临时 URL 以及任何可能随着时间推移而被锁定的 URL（即 Reddit 主题）。
 
-### `type` header
+### `type` 标头
 
-The `type` header specifies the type of EIP: Standards Track, Meta, or Informational. If the track is Standards please include the subcategory (core, networking, interface, or ERC).
+`type` 标头指定 EIP 的类型：标准跟踪、Meta 或信息。如果跟踪是标准，请包括子类别（核心、网络、接口或 ERC）。
 
-### `category` header
+### `category` 标头
 
-The `category` header specifies the EIP's category. This is required for standards-track EIPs only.
+`category` 标头指定 EIP 的类别。这仅对于标准跟踪 EIP 是必需的。
 
-### `created` header
+### `created` 标头
 
-The `created` header records the date that the EIP was assigned a number. Both headers should be in yyyy-mm-dd format, e.g. 2001-08-14.
+`created` 标头记录分配 EIP 编号的日期。这两个标头都应采用 yyyy-mm-dd 格式，例如 2001-08-14。
 
-### `requires` header
+### `requires` 标头
 
-EIPs may have a `requires` header, indicating the EIP numbers that this EIP depends on. If such a dependency exists, this field is required.
+EIP 可以具有 `requires` 标头，指示此 EIP 依赖的 EIP 编号。如果存在此类依赖关系，则此字段是必需的。
 
-A `requires` dependency is created when the current EIP cannot be understood or implemented without a concept or technical element from another EIP. Merely mentioning another EIP does not necessarily create such a dependency.
+当没有来自另一个 EIP 的概念或技术要素就无法理解或实现当前 EIP 时，就会创建 `requires` 依赖关系。仅仅提及另一个 EIP 不一定会创建这样的依赖关系。
 
-## Linking to External Resources
+## 链接到外部资源
 
-Other than the specific exceptions listed below, links to external resources **SHOULD NOT** be included. External resources may disappear, move, or change unexpectedly.
+除了下面列出的特定例外情况外，**不应**包含指向外部资源的链接。外部资源可能会意外消失、移动或更改。
 
-The process governing permitted external resources is described in [EIP-5757](./eip-5757.md).
+管理允许的外部资源的流程在 [EIP-5757](./eip-5757.md) 中进行了描述。
 
-### Execution Client Specifications
+### 执行客户端规范
 
-Links to the Ethereum Execution Client Specifications may be included using normal markdown syntax, such as:
+可以使用正常的 markdown 语法包含指向以太坊执行客户端规范的链接，例如：
 
 ```markdown
 [Ethereum Execution Client Specifications](https://github.com/ethereum/execution-specs/blob/9a1f22311f517401fed6c939a159b55600c454af/README.md)
 ```
 
-Which renders to:
+呈现为：
 
 [Ethereum Execution Client Specifications](https://github.com/ethereum/execution-specs/blob/9a1f22311f517401fed6c939a159b55600c454af/README.md)
 
-Permitted Execution Client Specifications URLs must anchor to a specific commit, and so must match this regular expression:
+允许的执行客户端规范 URL 必须锚定到特定的提交，因此必须与此正则表达式匹配：
 
 ```regex
 ^(https://github.com/ethereum/execution-specs/(blob|commit)/[0-9a-f]{40}/.*|https://github.com/ethereum/execution-specs/tree/[0-9a-f]{40}/.*)$
 ```
 
-### Execution Specification Tests
+### 共识层规范
 
-Links to the Ethereum Execution Specification Tests (EEST) may be included using normal markdown syntax, such as:
-
-```markdown
-[Ethereum Execution Specification Tests](https://github.com/ethereum/execution-spec-tests/blob/c9b9307ff320c9bb0ecb9a951aeab0da4d9d1684/README.md)
-```
-
-Which renders to:
-
-[Ethereum Execution Specification Tests](https://github.com/ethereum/execution-spec-tests/blob/c9b9307ff320c9bb0ecb9a951aeab0da4d9d1684/README.md)
-
-Permitted Execution Specification Tests URLs must anchor to a specific commit, and so must match one of these regular expressions:
-
-```regex
-^https://(www\.)?github\.com/ethereum/execution-spec-tests/(blob|tree)/[a-f0-9]{40}/.+$
-```
-
-```regex
-^https://(www\.)?github\.com/ethereum/execution-spec-tests/commit/[a-f0-9]{40}$
-```
-
-### Consensus Layer Specifications
-
-Links to specific commits of files within the Ethereum Consensus Layer Specifications may be included using normal markdown syntax, such as:
+可以使用正常的 markdown 语法包含指向以太坊共识层规范中特定提交的文件的链接，例如：
 
 ```markdown
 [Beacon Chain](https://github.com/ethereum/consensus-specs/blob/26695a9fdb747ecbe4f0bb9812fedbc402e5e18c/specs/sharding/beacon-chain.md)
 ```
 
-Which renders to:
+呈现为：
 
 [Beacon Chain](https://github.com/ethereum/consensus-specs/blob/26695a9fdb747ecbe4f0bb9812fedbc402e5e18c/specs/sharding/beacon-chain.md)
 
-Permitted Consensus Layer Specifications URLs must anchor to a specific commit, and so must match this regular expression:
+允许的共识层规范 URL 必须锚定到特定的提交，因此必须与此正则表达式匹配：
 
 ```regex
 ^https://github.com/ethereum/consensus-specs/(blob|commit)/[0-9a-f]{40}/.*$
 ```
 
-### Networking Specifications
+### 网络规范
 
-Links to specific commits of files within the Ethereum Networking Specifications may be included using normal markdown syntax, such as:
+可以使用正常的 markdown 语法包含指向以太坊网络规范中特定提交的文件的链接，例如：
 
 ```markdown
 [Ethereum Wire Protocol](https://github.com/ethereum/devp2p/blob/40ab248bf7e017e83cc9812a4e048446709623e8/caps/eth.md)
 ```
 
-Which renders as:
+呈现为：
 
 [Ethereum Wire Protocol](https://github.com/ethereum/devp2p/blob/40ab248bf7e017e83cc9812a4e048446709623e8/caps/eth.md)
 
-Permitted Networking Specifications URLs must anchor to a specific commit, and so must match this regular expression:
+允许的网络规范 URL 必须锚定到特定的提交，因此必须与此正则表达式匹配：
 
 ```regex
 ^https://github.com/ethereum/devp2p/(blob|commit)/[0-9a-f]{40}/.*$
 ```
 
-### Portal Specifications
+### 万维网联盟 (W3C)
 
-Links to specific commits of files within the Ethereum Portal Specifications may be included using normal markdown syntax, such as:
-
-```markdown
-[Portal Wire Protocol](https://github.com/ethereum/portal-network-specs/blob/5e321567b67bded7527355be714993c24371de1a/portal-wire-protocol.md)
-```
-
-Which renders as:
-
-[Portal Wire Protocol](https://github.com/ethereum/portal-network-specs/blob/5e321567b67bded7527355be714993c24371de1a/portal-wire-protocol.md)
-
-Permitted Networking Specifications URLs must anchor to a specific commit, and so must match this regular expression:
-
-```regex
-^https://github.com/ethereum/portal-network-specs/(blob|commit)/[0-9a-f]{40}/.*$
-```
-
-### World Wide Web Consortium (W3C)
-
-Links to a W3C "Recommendation" status specification may be included using normal markdown syntax. For example, the following link would be allowed:
+可以使用正常的 markdown 语法包含指向 W3C“推荐”状态规范的链接。例如，允许以下链接：
 
 ```markdown
 [Secure Contexts](https://www.w3.org/TR/2021/CRD-secure-contexts-20210918/)
 ```
 
-Which renders as:
+呈现为：
 
 [Secure Contexts](https://www.w3.org/TR/2021/CRD-secure-contexts-20210918/)
 
-Permitted W3C recommendation URLs MUST anchor to a specification in the technical reports namespace with a date, and so MUST match this regular expression:
+允许的 W3C 推荐 URL 必须锚定到技术报告命名空间中带有日期的规范，因此必须与此正则表达式匹配：
 
 ```regex
 ^https://www\.w3\.org/TR/[0-9][0-9][0-9][0-9]/.*$
 ```
 
-### Web Hypertext Application Technology Working Group (WHATWG)
+### Web 超文本应用技术工作组 (WHATWG)
 
-Links to WHATWG specifications may be included using normal markdown syntax, such as:
+可以使用正常的 markdown 语法包含指向 WHATWG 规范的链接，例如：
 
 ```markdown
 [HTML](https://html.spec.whatwg.org/commit-snapshots/578def68a9735a1e36610a6789245ddfc13d24e0/)
 ```
 
-Which renders as:
+呈现为：
 
 [HTML](https://html.spec.whatwg.org/commit-snapshots/578def68a9735a1e36610a6789245ddfc13d24e0/)
 
-Permitted WHATWG specification URLs must anchor to a specification defined in the `spec` subdomain (idea specifications are not allowed) and to a commit snapshot, and so must match this regular expression:
+允许的 WHATWG 规范 URL 必须锚定到 `spec` 子域中定义的规范（不允许使用 idea 规范）和提交快照，因此必须与此正则表达式匹配：
 
 ```regex
 ^https:\/\/[a-z]*\.spec\.whatwg\.org/commit-snapshots/[0-9a-f]{40}/$
 ```
 
-Although not recommended by WHATWG, EIPs must anchor to a particular commit so that future readers can refer to the exact version of the living standard that existed at the time the EIP was finalized. This gives readers sufficient information to maintain compatibility, if they so choose, with the version referenced by the EIP and the current living standard.
+尽管 WHATWG 不建议这样做，但 EIP 必须锚定到特定的提交，以便将来的读者可以参考 EIP 最终确定时存在的实时标准的精确版本。这为读者提供了足够的信息来维护与 EIP 引用的版本和当前实时标准的兼容性（如果他们选择这样做）。
 
-### Internet Engineering Task Force (IETF)
+### 互联网工程任务组 (IETF)
 
-Links to an IETF Request For Comment (RFC) specification may be included using normal markdown syntax, such as:
+可以使用正常的 markdown 语法包含指向 IETF Request For Comment (RFC) 规范的链接，例如：
 
 ```markdown
 [RFC 8446](https://www.rfc-editor.org/rfc/rfc8446)
 ```
 
-Which renders as:
+呈现为：
 
 [RFC 8446](https://www.rfc-editor.org/rfc/rfc8446)
 
-Permitted IETF specification URLs MUST anchor to a specification with an assigned RFC number (meaning cannot reference internet drafts), and so MUST match this regular expression:
+允许的 IETF 规范 URL 必须锚定到具有已分配 RFC 编号的规范（意味着不能引用互联网草案），因此必须与此正则表达式匹配：
 
 ```regex
 ^https:\/\/www.rfc-editor.org\/rfc\/.*$
 ```
 
-### Bitcoin Improvement Proposal
+### 比特币改进提案
 
-Links to Bitcoin Improvement Proposals may be included using normal markdown syntax, such as:
+可以使用正常的 markdown 语法包含指向比特币改进提案的链接，例如：
 
 ```markdown
 [BIP 38](https://github.com/bitcoin/bips/blob/3db736243cd01389a4dfd98738204df1856dc5b9/bip-0038.mediawiki)
 ```
 
-Which renders to:
+呈现为：
 
 [BIP 38](https://github.com/bitcoin/bips/blob/3db736243cd01389a4dfd98738204df1856dc5b9/bip-0038.mediawiki)
 
-Permitted Bitcoin Improvement Proposal URLs must anchor to a specific commit, and so must match this regular expression:
+允许的比特币改进提案 URL 必须锚定到特定的提交，因此必须与此正则表达式匹配：
 
 ```regex
 ^(https://github.com/bitcoin/bips/blob/[0-9a-f]{40}/bip-[0-9]+\.mediawiki)$
 ```
 
-### National Vulnerability Database (NVD)
+### 国家漏洞数据库 (NVD)
 
-Links to the Common Vulnerabilities and Exposures (CVE) system as published by the National Institute of Standards and Technology (NIST) may be included, provided they are qualified by the date of the most recent change, using the following syntax:
+可以使用国家标准与技术研究院 (NIST) 发布的通用漏洞披露 (CVE) 系统链接，前提是它们符合最新更改的日期，使用以下语法：
 
 ```markdown
 [CVE-2023-29638 (2023-10-17T10:14:15)](https://nvd.nist.gov/vuln/detail/CVE-2023-29638)
 ```
 
-Which renders to:
+呈现为：
 
 [CVE-2023-29638 (2023-10-17T10:14:15)](https://nvd.nist.gov/vuln/detail/CVE-2023-29638)
 
-### Chain Agnostic Improvement Proposals (CAIPs)
+### 数字对象标识符系统
 
-Links to a Chain Agnostic Improvement Proposals (CAIPs) specification may be included using normal markdown syntax, such as:
-
-```markdown
-[CAIP 10](https://github.com/ChainAgnostic/CAIPs/blob/5dd3a2f541d399a82bb32590b52ca4340b09f08b/CAIPs/caip-10.md)
-```
-
-Which renders to:
-
-[CAIP 10](https://github.com/ChainAgnostic/CAIPs/blob/5dd3a2f541d399a82bb32590b52ca4340b09f08b/CAIPs/caip-10.md)
-
-Permitted Chain Agnostic URLs must anchor to a specific commit, and so must match this regular expression:
-
-```regex
-^(https://github.com/ChainAgnostic/CAIPs/blob/[0-9a-f]{40}/CAIPs/caip-[0-9]+\.md)$
-```
-
-### Ethereum Yellow Paper
-
-Links to the Ethereum Yellow Paper may be included using normal markdown syntax, such as:
-
-```markdown
-[Ethereum Yellow Paper](https://github.com/ethereum/yellowpaper/blob/9c601d6a58c44928d4f2b837c0350cec9d9259ed/paper.pdf)
-```
-
-Which renders to:
-
-[Ethereum Yellow Paper](https://github.com/ethereum/yellowpaper/blob/9c601d6a58c44928d4f2b837c0350cec9d9259ed/paper.pdf)
-
-Permitted Yellow Paper URLs must anchor to a specific commit, and so must match this regular expression:
-
-```regex
-^(https://github\.com/ethereum/yellowpaper/blob/[0-9a-f]{40}/paper\.pdf)$
-```
-
-### Execution Client Specification Tests
-
-Links to the Ethereum Execution Client Specification Tests may be included using normal markdown syntax, such as:
-
-```markdown
-[Ethereum Execution Client Specification Tests](https://github.com/ethereum/execution-spec-tests/blob/d5a3188f122912e137aa2e21ed2a1403e806e424/README.md)
-```
-
-Which renders to:
-
-[Ethereum Execution Client Specification Tests](https://github.com/ethereum/execution-spec-tests/blob/d5a3188f122912e137aa2e21ed2a1403e806e424/README.md)
-
-Permitted Execution Client Specification Tests URLs must anchor to a specific commit, and so must match this regular expression:
-
-```regex
-^(https://github.com/ethereum/execution-spec-tests/(blob|commit)/[0-9a-f]{40}/.*|https://github.com/ethereum/execution-spec-tests/tree/[0-9a-f]{40}/.*)$
-```
-
-### Digital Object Identifier System
-
-Links qualified with a Digital Object Identifier (DOI) may be included using the following syntax:
+可以使用数字对象标识符 (DOI) 限定的链接，使用以下语法：
 
 ````markdown
 This is a sentence with a footnote.[^1]
@@ -467,7 +374,7 @@ This is a sentence with a footnote.[^1]
     ```
 ````
 
-Which renders to:
+呈现为：
 
 <!-- markdownlint-capture -->
 <!-- markdownlint-disable code-block-style -->
@@ -503,34 +410,34 @@ This is a sentence with a footnote.[^1]
 
 <!-- markdownlint-restore -->
 
-See the [Citation Style Language Schema](https://resource.citationstyles.org/schema/v1.0/input/json/csl-data.json) for the supported fields. In addition to passing validation against that schema, references must include a DOI and at least one URL.
+有关支持的字段，请参阅 [Citation Style Language Schema](https://resource.citationstyles.org/schema/v1.0/input/json/csl-data.json)。除了通过针对该模式的验证外，引用必须包括 DOI 和至少一个 URL。
 
-The top-level URL field must resolve to a copy of the referenced document which can be viewed at zero cost. Values under `additional-urls` must also resolve to a copy of the referenced document, but may charge a fee.
+顶级 URL 字段必须解析为可以零成本查看的引用文档的副本。`additional-urls` 下的值也必须解析为引用文档的副本，但可能会收取费用。
 
-## Linking to other EIPs
+## 链接到其他 EIP
 
-References to other EIPs should follow the format `EIP-N` where `N` is the EIP number you are referring to.  Each EIP that is referenced in an EIP **MUST** be accompanied by a relative markdown link the first time it is referenced, and **MAY** be accompanied by a link on subsequent references.  The link **MUST** always be done via relative paths so that the links work in this GitHub repository, forks of this repository, the main EIPs site, mirrors of the main EIP site, etc.  For example, you would link to this EIP as `./eip-1.md`.
+对其他 EIP 的引用应遵循 `EIP-N` 格式，其中 `N` 是您要引用的 EIP 编号。在 EIP 中引用的每个 EIP **必须**在第一次引用时附带一个相对 markdown 链接，并且**可以**在后续引用中附带一个链接。链接**必须**始终通过相对路径完成，以便链接在此 GitHub 存储库、此存储库的分支、主 EIP 站点、主 EIP 站点的镜像等中起作用。例如，您应该将此 EIP 链接为 `./eip-1.md`。
 
-## Auxiliary Files
+## 辅助文件
 
-Images, diagrams and auxiliary files should be included in a subdirectory of the `assets` folder for that EIP as follows: `assets/eip-N` (where **N** is to be replaced with the EIP number). When linking to an image in the EIP, use relative links such as `../assets/eip-1/image.png`.
+图像、图表和辅助文件应包含在该 EIP 的 `assets` 文件夹的子目录中，如下所示：`assets/eip-N`（其中 **N** 将替换为 EIP 编号）。链接到 EIP 中的图像时，请使用相对链接，例如 `../assets/eip-1/image.png`。
 
-## Transferring EIP Ownership
+## 转移 EIP 所有权
 
-It occasionally becomes necessary to transfer ownership of EIPs to a new champion. In general, we'd like to retain the original author as a co-author of the transferred EIP, but that's really up to the original author. A good reason to transfer ownership is because the original author no longer has the time or interest in updating it or following through with the EIP process, or has fallen off the face of the 'net (i.e. is unreachable or isn't responding to email). A bad reason to transfer ownership is because you don't agree with the direction of the EIP. We try to build consensus around an EIP, but if that's not possible, you can always submit a competing EIP.
+有时有必要将 EIP 的所有权转移给新的倡导者。一般来说，我们希望保留原始作者作为转移的 EIP 的共同作者，但这实际上取决于原始作者。转移所有权的一个好理由是，原始作者不再有时间或兴趣来更新它或完成 EIP 流程，或者已经从互联网上消失了（即无法联系或没有回复电子邮件）。转移所有权的一个坏理由是因为您不同意 EIP 的方向。我们尝试围绕 EIP 建立共识，但如果这不可能，您可以随时提交竞争的 EIP。
 
-If you are interested in assuming ownership of an EIP, send a message asking to take over, addressed to both the original author and the EIP editor. If the original author doesn't respond to the email in a timely manner, the EIP editor will make a unilateral decision (it's not like such decisions can't be reversed :)).
+如果您有兴趣承担 EIP 的所有权，请发送一条消息，要求接管，发送给原始作者和 EIP 编辑。如果原始作者没有及时回复电子邮件，EIP 编辑将做出单方面决定（并非此类决定无法撤销 :)）。
 
-## EIP Editors
+## EIP 编辑
 
-The current EIP editors are
+当前的 EIP 编辑是
 
 - Matt Garnett (@lightclient)
 - Sam Wilson (@SamWilsn)
 - Zainan Victor Zhou (@xinbenlv)
 - Gajinder Singh (@g11tech)
 
-Emeritus EIP editors are
+荣誉 EIP 编辑是
 
 - Alex Beregszaszi (@axic)
 - Casey Detrio (@cdetrio)
@@ -543,58 +450,59 @@ Emeritus EIP editors are
 - Nick Savers (@nicksavers)
 - Vitalik Buterin (@vbuterin)
 
-If you would like to become an EIP editor, please check [EIP-5069](./eip-5069.md).
+如果您想成为 EIP 编辑，请查看 [EIP-5069](./eip-5069.md)。
 
-## EIP Editor Responsibilities
+## EIP 编辑职责
 
-For each new EIP that comes in, an editor does the following:
+对于每个新的 EIP，编辑执行以下操作：
 
-- Read the EIP to check if it is ready: sound and complete. The ideas must make technical sense, even if they don't seem likely to get to final status.
-- The title should accurately describe the content.
-- Check the EIP for language (spelling, grammar, sentence structure, etc.), markup (GitHub flavored Markdown), code style
+- 阅读 EIP 以检查它是否已准备好：合理且完整。这些想法必须具有技术意义，即使它们似乎不太可能达到最终状态。
+- 标题应准确描述内容。
+- 检查 EIP 的语言（拼写、语法、句子结构等）、标记（GitHub flavored Markdown）、代码风格
 
-If the EIP isn't ready, the editor will send it back to the author for revision, with specific instructions.
+如果 EIP 未准备好，编辑将将其发回给作者进行修订，并提供具体说明。
 
-Once the EIP is ready for the repository, the EIP editor will:
+一旦 EIP 准备好进入存储库，EIP 编辑将：
 
-- Assign an EIP number (generally incremental; editors can reassign if number sniping is suspected)
-- Merge the corresponding [pull request](https://github.com/ethereum/EIPs/pulls)
-- Send a message back to the EIP author with the next step.
+- 分配一个 EIP 编号（通常是增量的；如果怀疑有人抢注编号，编辑可以重新分配）
+- 合并相应的 [pull request](https://github.com/ethereum/EIPs/pulls)
+- 向 EIP 作者发回一条消息，说明下一步。
 
-Many EIPs are written and maintained by developers with write access to the Ethereum codebase. The EIP editors monitor EIP changes, and correct any structure, grammar, spelling, or markup mistakes we see.
+许多 EIP 由具有以太坊代码库写入权限的开发人员编写和维护。EIP 编辑监控 EIP 更改，并纠正我们看到的任何结构、语法、拼写或标记错误。
 
-The editors don't pass judgment on EIPs. We merely do the administrative & editorial part.
+编辑不对 EIP 做出判断。我们只是做管理和编辑部分。
 
-## Style Guide
+## 风格指南
 
-### Titles
+### 标题
 
-The `title` field in the preamble:
+前导码中的 `title` 字段：
 
-- Should not include the word "standard" or any variation thereof; and
-- Should not include the EIP's number.
+- 不应包含“标准”或其任何变体；并且
+- 不应包含 EIP 的编号。
 
-### Descriptions
+### 描述
 
-The `description` field in the preamble:
+前导码中的 `description` 字段：
 
-- Should not include the word "standard" or any variation thereof; and
-- Should not include the EIP's number.
+- 不应包含“标准”或其任何变体；并且
+- 不应包含 EIP 的编号。
 
-### EIP numbers
+### EIP 编号
 
-When referring to an EIP with a `category` of `ERC`, it must be written in the hyphenated form `ERC-X` where `X` is that EIP's assigned number. When referring to EIPs with any other `category`, it must be written in the hyphenated form `EIP-X` where `X` is that EIP's assigned number.
+当引用 `category` 为 `ERC` 的 EIP 时，必须以连字符形式 `ERC-X` 编写，其中 `X` 是该 EIP 的分配编号。当引用任何其他 `category` 的 EIP 时，必须以连字符形式 `EIP-X` 编写，其中 `X` 是该 EIP 的分配编号。
 
-### RFC 2119 and RFC 8174
+### RFC 2119 和 RFC 8174
 
-EIPs are encouraged to follow [RFC 2119](https://www.ietf.org/rfc/rfc2119.html) and [RFC 8174](https://www.ietf.org/rfc/rfc8174.html) for terminology and to insert the following at the beginning of the Specification section:
+鼓励 EIP 遵循 [RFC 2119](https://www.ietf.org/rfc/rfc2119.html) 和 [RFC 8174](https://www.ietf.org/rfc/rfc8174.html) 中的术语，并在规范部分的开头插入以下内容：
 
 > The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119 and RFC 8174.
 
-## History
+## 历史
 
-This document was derived heavily from [Bitcoin's BIP-0001](https://github.com/bitcoin/bips) written by Amir Taaki which in turn was derived from [Python's PEP-0001](https://peps.python.org/). In many places text was simply copied and modified. Although the PEP-0001 text was written by Barry Warsaw, Jeremy Hylton, and David Goodger, they are not responsible for its use in the Ethereum Improvement Process, and should not be bothered with technical questions specific to Ethereum or the EIP. Please direct all comments to the EIP editors.
+本文档很大程度上来源于 Amir Taaki 编写的 [Bitcoin's BIP-0001](https://github.com/bitcoin/bips)，而后者又来源于 [Python's PEP-0001](https://peps.python.org/)。在许多地方，文本只是被复制和修改。尽管 PEP-0001 文本由 Barry Warsaw、Jeremy Hylton 和 David Goodger 编写，但他们不对其在以太坊改进过程中的使用负责，不应因以太坊或 EIP 特有的技术问题而受到打扰。请将所有评论发送给 EIP 编辑。
 
-## Copyright
+## 版权
 
-Copyright and related rights waived via [CC0](../LICENSE.md).
+版权和相关权利通过 [CC0](../LICENSE.md) 放弃。
+```

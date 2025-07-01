@@ -85,3 +85,97 @@ eipw --config ./config/eipw.toml <INPUT FILE / DIRECTORY>
 2. Preview your local Jekyll site in your web browser at `http://localhost:4000`.
 
 More information on Jekyll and GitHub Pages [here](https://docs.github.com/en/enterprise/2.14/user/articles/setting-up-your-github-pages-site-locally-with-jekyll).
+
+
+## 合并部署
+
+EIPS：https://github.com/ethereum/EIPs
+目前ibc-team下已有eips库，但版本比较久远，需要把新的eips库clone过来，再执行翻译脚本。
+● 先在自己的仓库下clone eips，尝试构建。
+● 构建完成后尝试执行翻译脚本。
+构建eips：
+1. 这是一个以太坊改进提案(EIP)的官方网站项目
+2. 使用Jekyll静态网站生成器构建
+3. 当前Ruby版本是2.6.10，但文档建议使用Ruby 3.1.4
+4. 需要安装bundler和依赖包
+5. 然后可以用jekyll serve运行
+  ● 更新ruby版本 ： 使用rbenv来管理ruby版本。
+  ● 安装依赖：无法安装，切换国内镜像源。网络连接问题，无法访问rubygems.org
+  https://rubygems.org/ removed from sources
+  https://gems.ruby-china.com/ added to sources
+  ERC无内容，因为ERC的提案单独放了个仓库，和EIPS同级：http://github.com/ethereum/ERCs。
+  需要把ERCs也clone下来，在本地做合并后，作为一个项目构建。
+
+``````
+   # 合并ERC内容到EIP仓库
+   cp -rp ERCs/ERCS/. EIPS/
+   cp -rp ERCs/EIPS/. EIPS/  
+   cp -rp ERCs/assets/. assets/
+   
+   # 重命名文件：erc-*.md -> eip-*.md
+   find . -name "erc-*.md" -type f -exec mv {} {重命名为eip-} \;
+   
+   # 重命名目录：erc-* -> eip-*
+   find . -name "erc-*" -type d -exec mv {} {重命名为eip-} \;
+``````
+
+合并脚本
+
+``````
+#!/bin/bash
+
+echo "🚀 开始按照官方流程合并 ERCs 仓库..."
+
+# 1. 复制ERCs仓库到当前目录
+echo "📁 复制 ERCs 仓库..."
+cp -rp ../ERCs ./
+
+# 2. 创建必要的目录结构
+echo "📂 创建目录结构..."
+mkdir -p ./ERCs/ERCS
+mkdir -p ./ERCs/EIPS
+
+# 3. 合并内容到EIPS目录
+echo "🔄 合并 ERC 内容到 EIPS 目录..."
+cp -rp ./ERCs/ERCS/. ./EIPS/
+cp -rp ./ERCs/EIPS/. ./EIPS/
+cp -rp ./ERCs/assets/. ./assets/
+
+# 4. 重命名 erc-*.md 文件为 eip-*.md
+echo "🏷️  重命名 ERC 文件为 EIP 格式..."
+cd ./EIPS
+find . -name "erc-*.md" -type f | while read file; do
+    newname=$(echo "$file" | sed 's/erc-/eip-/')
+    echo "重命名: $file -> $newname"
+    mv "$file" "$newname"
+done
+
+# 5. 重命名 assets 目录中的 erc-* 目录为 eip-*
+echo "🗂️  重命名 assets 目录..."
+cd ../assets
+find . -name "erc-*" -type d | while read dir; do
+    newdir=$(echo "$dir" | sed 's/erc-/eip-/')
+    echo "重命名目录: $dir -> $newdir"
+    mv "$dir" "$newdir"
+done
+
+# 6. 回到根目录并清理
+cd ..
+echo "🧹 清理临时文件..."
+rm -rf ERCs
+
+echo "✅ 合并完成！现在 EIP 和 ERC 内容已经合并到一起了。"
+echo "📝 您现在可以重新启动 Jekyll 服务器查看完整内容。" 
+``````
+
+## 草案统计，截止2025.06.30
+
+### Status统计（总共986个文档）：
+
+- **Final** (239个) - 最终确定的标准
+- **Draft** (250个) - 草案阶段
+- **St****agnant** (365个) - 停滞状态
+- **Review** (77个) - 同行评审阶段
+- **Last Call** (17个) - 最终评审阶段
+- **Withdrawn** (36个) - 已撤回
+- **Living** (2个) - 持续更新状态
