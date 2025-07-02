@@ -1,4 +1,3 @@
-```md
 ---
 eip: 67
 title: 带有元数据、值和字节码的 URI 方案
@@ -79,4 +78,3 @@ withdrawal-reason: 已被 EIP-681 取代
 ## 版权
 
 在 [CC0](../LICENSE.md) 下放弃版权和相关权利。
-```

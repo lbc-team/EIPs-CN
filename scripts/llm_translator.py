@@ -56,6 +56,33 @@ class LLMTranslator:
             print(f"使用 OpenRouter 模型: {self.model}")
             self.client = openai.OpenAI(api_key=api_key, base_url=base_url)
 
+    def fix_markdown_format(self, content):
+        """
+        修复LLM可能产生的markdown格式问题
+        主要修复用```md ```包裹整个内容的问题
+        """
+        if not content:
+            return content
+        
+        content = content.strip()
+        
+        # 检查是否被错误地用```md ```包裹
+        if content.startswith('```md\n') and content.endswith('\n```'):
+            # 移除包裹的markdown代码块标记
+            fixed_content = content[6:-4]  # 移除```md\n (6个字符) 和 \n``` (4个字符)
+            print("检测到并修复了markdown格式包裹问题")
+            return fixed_content
+        elif content.startswith('```md') and content.endswith('```'):
+            # 处理没有换行的情况
+            if content.startswith('```md\n'):
+                fixed_content = content[6:-3]  # 移除```md\n (6个字符) 和 ``` (3个字符)
+            else:
+                fixed_content = content[5:-3]  # 移除```md (5个字符) 和 ``` (3个字符)
+            print("检测到并修复了markdown格式包裹问题")
+            return fixed_content
+        
+        return content
+
     def simple_translate(self, text):
         system_prompt = "你是一个精通中文的与英文的计算机技术专家，请将以下英文内容翻译成中文，仅返回翻译后的中文内容，不要添加任何解释。"
 
@@ -81,10 +108,13 @@ class LLMTranslator:
                 # print(answer_chunk)
                 if answer_chunk and answer_chunk != "":
                     responseContent += answer_chunk
-            return responseContent
+            
+            # 修复格式问题
+            return self.fix_markdown_format(responseContent)
         else:
             response = self.client.chat.completions.create(**request_params)
-            return response.choices[0].message.content
+            # 修复格式问题
+            return self.fix_markdown_format(response.choices[0].message.content)
 
 
 
@@ -97,7 +127,8 @@ class LLMTranslator:
             translated_chunk = self.translate(chunk)
             translated_text += translated_chunk
 
-        return translated_text
+        # 修复整体格式问题
+        return self.fix_markdown_format(translated_text)
 
     def translate(self, markdown_text):
         request_params = {
@@ -124,7 +155,10 @@ class LLMTranslator:
                     # print(answer_chunk)
                     if answer_chunk and answer_chunk != "":
                         responseContent += answer_chunk
-            return responseContent
+            
+            # 修复格式问题
+            return self.fix_markdown_format(responseContent)
         else:
             response = self.client.chat.completions.create(**request_params)
-            return response.choices[0].message.content
+            # 修复格式问题
+            return self.fix_markdown_format(response.choices[0].message.content)

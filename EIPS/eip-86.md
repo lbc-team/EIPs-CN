@@ -1,4 +1,3 @@
-```md
 ---
 eip: 86
 title: 交易发起者和签名的抽象
@@ -105,4 +104,3 @@ assert ~ecrecover(signing_hash, sig_v, sig_r, sig_s) == <pubkey hash here>
 # 版权
 
 在 CC0 下放弃版权和相关权利。
-```

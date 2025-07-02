@@ -1,4 +1,3 @@
-```md
 ---
 eip: 1
 title: EIP 目的和指南
@@ -505,4 +504,3 @@ This is a sentence with a footnote.[^1]
 ## 版权
 
 版权和相关权利通过 [CC0](../LICENSE.md) 放弃。
-```

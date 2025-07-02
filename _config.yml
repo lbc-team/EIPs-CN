@@ -15,10 +15,10 @@
 # in the templates via {{ site.myvariable }}.
 title: Ethereum Improvement Proposals
 description: >-
-  Ethereum Improvement Proposals (EIPs) describe standards for the Ethereum
-  platform, such as core protocol specifications.
+  登链社区翻译只为分享优质内容。
+  登链社区始于 2017 年，通过高质量内容平台和线上线下集训营，助力 Web3 开发者成长
 url: "https://learnblockchain.cn"
-baseurl: "/docs"
+baseurl: "/docs/eips"
 github_username:  ethereum
 repository: ethereum/EIPs
 lang: en

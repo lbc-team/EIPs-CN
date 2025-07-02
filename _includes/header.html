@@ -2,7 +2,10 @@
   <div class="wrapper">
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}（以太坊改进提案）</a>
+    <div class="site-subtitle" style="margin-top: 5px;">
+      <a href="https://learnblockchain.cn/" target="_blank" style="color: #666; text-decoration: none; font-size: 18px;">登链社区翻译</a>
+    </div>
 
     {%- if page_paths -%}
       <nav class="site-nav d-flex">
