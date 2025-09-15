@@ -16,7 +16,7 @@ permalink: /EIPS/
 <p>以太坊改进提案 (EIPs) 描述了以太坊平台的标准，包括核心协议规范、客户端 APIs 和合约标准。网络升级在 <a target="_blank" href="https://github.com/ethereum/pm/">Ethereum Project Management</a> 仓库中单独讨论。</p>
 
 <h2>贡献</h2>
-<p>首先查看 <a href="EIPS/eip-1">EIP-1</a>。然后克隆仓库并将您的 EIP 添加到其中。这里有一个 <a href="https://github.com/ethereum/EIPs/blob/master/eip-template.md?plain=1">EIP 模板</a>。然后向以太坊的 <a href="https://github.com/ethereum/EIPs">EIPs 仓库</a> 提交拉取请求。</p>
+<p>首先查看 <a href="./eip-1">EIP-1</a>。然后克隆仓库并将您的 EIP 添加到其中。这里有一个 <a href="https://github.com/ethereum/EIPs/blob/master/eip-template.md?plain=1">EIP 模板</a>。然后向以太坊的 <a href="https://github.com/ethereum/EIPs">EIPs 仓库</a> 提交拉取请求。</p>
 
 <h2>EIP 状态术语</h2>
 <ul>
@@ -38,16 +38,16 @@ permalink: /EIPS/
 <p>描述影响大多数或所有以太坊实现的任何更改，例如网络协议的更改、区块或交易有效性规则的更改、拟议的应用标准/约定，或影响使用以太坊的应用程序互操作性的任何更改或添加。此外，标准 EIPs 可以分为以下类别。</p>
 
 <h4><a href="{{"core"|relative_url}}">核心</a> ({{site.pages|where:"type","Standards Track"|where:"category","Core"|size}})</h4>
-<p>需要共识分叉的改进 (e.g. <a href="./EIPS/eip-5">EIP-5</a>, <a href="./EIPS/eip-211">EIP-211</a>), 以及不一定是共识关键，但可能与“核心开发”讨论相关的更改(例如, <a href="./EIPS/eip-225">EIP-225</a>中描述的测试网的PoA算法).</p>
+<p>需要共识分叉的改进 (e.g. <a href="./eip-5">EIP-5</a>, <a href="./eip-211">EIP-211</a>), 以及不一定是共识关键，但可能与“核心开发”讨论相关的更改(例如, <a href="./eip-225">EIP-225</a>中描述的测试网的PoA算法).</p>
 
 <h4><a href="{{"networking"|relative_url}}">网络</a> ({{site.pages|where:"type","Standards Track"|where:"category","Networking"|size}})</h4>
-<p>包括围绕 devp2p (<a href="./EIPS/eip-8">EIP-8</a>) 和轻量以太坊子协议的改进，以及对 whisper 和 swarm 网络协议规范的拟议改进。</p>
+<p>包括围绕 devp2p (<a href="./eip-8">EIP-8</a>) 和轻量以太坊子协议的改进，以及对 whisper 和 swarm 网络协议规范的拟议改进。</p>
 
 <h4><a href="{{"interface"|relative_url}}">接口</a> ({{site.pages|where:"type","Standards Track"|where:"category","Interface"|size}})</h4>
-<p>包括对客户端API/RPC规范和标准的改进，以及某些语言级别的标准，如方法名 (<a href="./EIPS/eip-6">EIP-6</a>) 和合约ABIs。“接口”标签与接口库保持一致，并且在EIP提交到EIP存储库之前，应该主要在该存储库中进行讨论。</p>
+<p>包括对客户端API/RPC规范和标准的改进，以及某些语言级别的标准，如方法名 (<a href="./eip-6">EIP-6</a>) 和合约ABIs。“接口”标签与接口库保持一致，并且在EIP提交到EIP存储库之前，应该主要在该存储库中进行讨论。</p>
 
 <h4><a href="{{"erc"|relative_url}}">ERC</a> ({{site.pages|where:"type","Standards Track"|where:"category","ERC"|size}})</h4>
-<p>应用级标准和约定，包括合约标准，如代币标准 (<a href="./EIPS/eip-20">EIP-20</a>)、名称注册表 (<a href="./EIPS/eip-137">EIP-137</a>)、URI 方案 (<a href="./EIPS/eip-681">EIP-681</a>)、库/包格式 (<a href="./EIPS/eip-190">EIP-190</a>) 和账户抽象 (<a href="./EIPS/eip-4337">EIP-4337</a>)。</p>
+<p>应用级标准和约定，包括合约标准，如代币标准 (<a href="./eip-20">EIP-20</a>)、名称注册表 (<a href="./eip-137">EIP-137</a>)、URI 方案 (<a href="./eip-681">EIP-681</a>)、库/包格式 (<a href="./eip-190">EIP-190</a>) 和账户抽象 (<a href="./eip-4337">EIP-4337</a>)。</p>
 
 <h3><a href="{{"meta"|relative_url}}">元数据</a> ({{site.pages|where:"type","Meta"|size}})</h3>
 <p>描述围绕以太坊的流程或提议对流程的更改（或流程中的事件）。流程 EIPs 类似于标准跟踪 EIPs，但适用于以太坊协议本身以外的领域。它们可能提议实现，但不针对以太坊的代码库；它们通常需要社区共识；与信息类 EIPs 不同，它们不仅仅是建议，用户通常不能自由地忽略它们。示例包括程序、指南、决策过程的更改，以及对以太坊开发中使用的工具或环境的更改。任何元数据 EIP 也被视为流程 EIP。</p>
